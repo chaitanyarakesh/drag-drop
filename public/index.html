@@ -21,20 +21,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.2/underscore-min.js" type="text/javascript"></script>  
   <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min.js" type="text/javascript"></script>
 <style>
-    /* .draggable {
-        height: 100;
-        width: 100px;
-        padding:10px;
-        background-color:aquamarine
 
-}
-.dropable{
- width: 100px;
- height: 100px;
- color: brown
-
-}
- */
 
 </style>
 </head>
@@ -49,16 +36,26 @@
 
      <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-6" id="dragableclass" >
-                    <!-- <div class=" myCss" id="dragdrop" ></div> -->
-                    <input type="checkbox" name="checkbox"  >
+				<div class="col-md-12">
+					<div class="col-md-6">
+						 <div class="col-md-3" draggable="true" id="dragableclass" ondragstart="myFunction(event,this.id)">
+							<!-- <div class=" myCss" id="dragdrop" ></div> -->
+							<input type="checkbox" name="checkbox"  >
+						</div>
+						 <div class="col-md-3" draggable="true" id="dragableclass2" ondragstart="myFunction(event,this.id)">
+							<!-- <div class=" myCss" id="dragdrop" ></div> -->
+							<input type="checkbox" name="checkbox"  >
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="col-md-4 dropable" id="dropbleclass">
+						   drop
+						</div>
+					</div>
+				</div>
+               
 
-
-                </div>
-
-                <div class="col-lg-6 dropable" id="dropbleclass" style="background-color:blue">
-                   drop
-                </div>
+                
             </div>
         </div>
 
@@ -80,6 +77,7 @@
           <input type="text" name="label" id="label">
           <input type="text" name="width" id="width">
           <input type="hidden" name="superID" id="superId">
+		  <input type="hidden" name="chkId" id="chkId">
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -93,7 +91,15 @@
 </html>
 <script>
 
-$(document).ready(function(){
+//$(document).ready(function(){
+var draggableId;
+ function myFunction(event,id){
+ draggableId = id;
+	$("#"+id).draggable({
+     
+     helper: 'clone'
+     });
+ }
 //         //Counter
 //         counter = 0;
 //         //Make element draggable
@@ -144,23 +150,25 @@ $(document).ready(function(){
  i=1;
    
  
- $("#dragableclass").draggable({
+/* $("#dragableclass").draggable({
      
      helper: 'clone'
-     });
+     });*/
+	 
+	
 
      $("#dropbleclass").droppable({
-      accept:'#dragableclass',
       drop:function(event,ui){
-         // var element = $(ui.helper).clone();
-          $('#dropbleclass').append('<div id="ccl'+i+'" onclick="openModal(this.id)"><label>userName</label><input type="text" ></div>');
+			chkId=draggableId
+          var element = $(ui.helper).clone();
+          $('#dropbleclass').append('<div id="ccl'+i+'" onclick="openModal(this.id)"><label>userName</label><input type="text" id="'+chkId+'"></div>');
           i++;
       }
        
      });
 
 
-    });
+    //});
     // jQuery(document).ready(function(e) {
     // jQuery('.').trigger('click');
 //});
@@ -170,9 +178,9 @@ $(document).ready(function(){
         $("#saveFun").click(function(){
           //  
             var labelVal  = $("#label").val();
-             var widthVal = $("#width").val();
-             var superId = $("#superId").val();
-
+            var widthVal = $("#width").val();
+            var superId = $("#superId").val();
+			var chkId = $("#chkId").val();
 
              var BookModel = Backbone.Model.extend({
     urlRoot: '/saveUserInfo'
@@ -181,7 +189,7 @@ var BookCollection = Backbone.Collection.extend({
     model: BookModel
     , url: '/saveUserInfo'
 });
-var brandNewBook = new BookModel({ label: labelVal, inputwidth: widthVal, superId : superId });
+var brandNewBook = new BookModel({ label: labelVal, inputwidth: widthVal, superId : superId,chkId : chkId });
 brandNewBook.save();
          
             // var Model1 = Backbone.Model.extend({ url: '/saveUserInfo/'+labelVal+"/"+widthVal+"/"+superId });
@@ -244,6 +252,9 @@ brandNewBook.save();
 
     function openModal(id){
         $("#myModal").modal('show');
-        $("#superId").val(id)
+        $("#superId").val(id);
+		var chkID = $("#ccl1 :input").attr("id");
+		$("#chkId").val(chkID)
+		
     }
  </script>
