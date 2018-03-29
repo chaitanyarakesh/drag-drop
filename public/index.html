@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.2/underscore-min.js" type="text/javascript"></script>  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min.js" type="text/javascript"></script>
+<style>
+    /* .draggable {
+        height: 100;
+        width: 100px;
+        padding:10px;
+        background-color:aquamarine
+
+}
+.dropable{
+ width: 100px;
+ height: 100px;
+ color: brown
+
+}
+ */
+
+</style>
+</head>
+
+<body>
+     <!-- <div class="draggable" style="padding:10px;background-color:aquamarine">
+         <input type="checkbox" name="checkbox" id="dragablecheckbox" >
+     </div>
+     <div id="dropbleclass" class="dropable">
+
+     </div> -->
+
+     <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-6" id="dragableclass" >
+                    <!-- <div class=" myCss" id="dragdrop" ></div> -->
+                    <input type="checkbox" name="checkbox"  >
+
+
+                </div>
+
+                <div class="col-lg-6 dropable" id="dropbleclass" style="background-color:blue">
+                   drop
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Button trigger modal -->
+<!-- <button type="button" id="mymodal" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+    Launch demo modal
+  </button> -->
+  
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+        </div>
+        <div class="modal-body">
+          <input type="text" name="label" id="label">
+          <input type="text" name="width" id="width">
+          <input type="hidden" name="superID" id="superId">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="saveFun">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
+<script>
+
+$(document).ready(function(){
+//         //Counter
+//         counter = 0;
+//         //Make element draggable
+//         $(".draggable").draggable({
+//             helper: function() {
+//         //debugger;
+//         return $('<input type="text" id="dragdrop1" onkeypress="myFun(event,this.id)"/>').append($(this).clone());
+//     }
+// ,
+//           containment: 'dropbleclass',            //When first dragged
+//             stop : function(ev, ui) {
+//             	var pos=$(ui.helper).offset();
+//             	objName = "#clonediv"+counter;
+//             	$(objName).children().css({"height":"100px","width":"100px"});
+//             	$(objName).removeClass("draggable");
+
+
+//                	//When an existiung object is dragged
+//                 $(objName).draggable({
+//                 	containment: 'dropbleclass',
+//                     stop:function(ev, ui) {
+//                     	var pos=$(ui.helper).offset();
+//                     }
+//                 });
+//             }
+//         });
+//         //Make element droppable
+//         $("#dropbleclass").droppable({
+//           //  accept : 'p',
+// 			drop: function(ev, ui) {
+// 				if ($(ui.helper).attr('id').search(/drag[0-9]/) == -1){
+// 					counter++;
+// 					var element=$(ui.helper).clone();
+// 					element.addClass("tempclass");
+// 					$(this).append(element);
+// 					$(".tempclass").attr("id","clonediv"+counter);
+// 					$("#clonediv"+counter).removeClass("tempclass");
+
+// 					//Get the dynamically item id
+// 					draggedNumber = $(ui.helper).attr('id')
+// 					itemDragged = "dragged" + RegExp.$1
+// 					console.log(itemDragged)
+
+// 					$("#clonediv"+counter).addClass(itemDragged);
+// 				}
+//         	}
+//         });
+ i=1;
+   
+ 
+ $("#dragableclass").draggable({
+     
+     helper: 'clone'
+     });
+
+     $("#dropbleclass").droppable({
+      accept:'#dragableclass',
+      drop:function(event,ui){
+         // var element = $(ui.helper).clone();
+          $('#dropbleclass').append('<div id="ccl'+i+'" onclick="openModal(this.id)"><label>userName</label><input type="text" ></div>');
+          i++;
+      }
+       
+     });
+
+
+    });
+    // jQuery(document).ready(function(e) {
+    // jQuery('.').trigger('click');
+//});
+
+	//save function
+    var user;
+        $("#saveFun").click(function(){
+          //  
+            var labelVal  = $("#label").val();
+             var widthVal = $("#width").val();
+             var superId = $("#superId").val();
+
+
+             var BookModel = Backbone.Model.extend({
+    urlRoot: '/saveUserInfo'
+});
+var BookCollection = Backbone.Collection.extend({
+    model: BookModel
+    , url: '/saveUserInfo'
+});
+var brandNewBook = new BookModel({ label: labelVal, inputwidth: widthVal, superId : superId });
+brandNewBook.save();
+         
+            // var Model1 = Backbone.Model.extend({ url: '/saveUserInfo/'+labelVal+"/"+widthVal+"/"+superId });
+             //this.model.save(sendData, { success, error });
+            
+
+
+        //     var User = Backbone.Model.extend({
+        //         defaults: {
+        //             parentId: '',
+        //             labelName: '',
+        //             inputWidth: ''
+        //         },
+        //         initialize: function(){
+        //             alert("Welcome to this world");
+        //         }
+        //     });
+        //     user = new User();
+        //     user.set({parentId : superId, labelName : labelVal, inputWidth : widthVal});  
+        //    console.log("details are ...: ", user.get('parentId'));
+        //    console.log(user.get('labelName'))
+        //    console.log(user.get('inputWidth'))
+        })
+
+        $('#myModal').on('hidden.bs.modal', function () {
+            
+            Courses = Backbone.Collection.extend({
+                    url:'/getUserInfo'
+                });
+                var courses = new Courses();
+                courses.fetch({
+                    success:function(data_array){
+                        console.log(data_array.models[0].attributes);
+                    }
+                })
+            // var  UserView = Backbone.View.extend({
+            //     render : function(){
+            //         var parentId='';
+            //         _.each(this.model.attributes, function(val, key) {
+            //             if(key=="parentId" && val!=""){
+            //                 parentId=val;
+                            
+            //             }
+            //             else if(key=="labelName" && val!=""){
+            //                 $("#"+parentId).find('label').text(val)
+            //             }
+            //             else if(key=="inputWidth" &&val!=""){
+            //                 $("#"+parentId).find('input').css("width",val)
+            //             }
+            //         });
+            //         return this;
+            //     }
+            // });
+            // var modelView = new UserView({model: user});
+            // modelView.render();
+
+        })
+
+	
+
+    function openModal(id){
+        $("#myModal").modal('show');
+        $("#superId").val(id)
+    }
+ </script>
