@@ -38,14 +38,14 @@
             <div class="row">
 				<div class="col-md-12">
 					<div class="col-md-6">
-						 <div class="col-md-3" draggable="true" id="dragableclass" ondragstart="myFunction(event,this.id)">
+						 <div class="col-md-3" draggable="true" id="dragableclass" style="padding:15px;background-color:#ccc">
 							<!-- <div class=" myCss" id="dragdrop" ></div> -->
 							<input type="checkbox" name="checkbox"  >
 						</div>
-						 <div class="col-md-3" draggable="true" id="dragableclass2" ondragstart="myFunction(event,this.id)">
-							<!-- <div class=" myCss" id="dragdrop" ></div> -->
+						 <!-- <div class="col-md-3" draggable="true" id="dragableclass2">
+							
 							<input type="checkbox" name="checkbox"  >
-						</div>
+						</div> -->
 					</div>
 					<div class="col-md-6">
 						<div class="col-md-4 dropable" id="dropbleclass">
@@ -95,14 +95,14 @@
 <script>
 
 //$(document).ready(function(){
-var draggableId;
- function myFunction(event,id){
- draggableId = id;
-	$("#"+id).draggable({
+//var draggableId;
+ //function myFunction(event,id){
+ draggableId = dragableclass;
+	$("#dragableclass").draggable({
      
      helper: 'clone'
      });
- }
+ //}
 //         //Counter
 //         counter = 0;
 //         //Make element draggable
