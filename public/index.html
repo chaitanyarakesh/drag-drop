@@ -178,7 +178,7 @@ var draggableId;
 
 	//save function
     var user;
-    var json_data = [];
+    var json_data = {};
         $("#saveFun").click(function(){
           //  
             var labelVal  = $("#label").val();
@@ -186,26 +186,47 @@ var draggableId;
             var superId = $("#superId").val();
             var chkId = $("#chkId").val();
             console.log(json_data.length)
-            if(Object.keys(json_data).length!=0){
-                for(let i=0;i<Object.keys(json_data).length;i++){
-                    if(Object.keys(json_data)[i] == chkId){
-                        json_data[Object.keys(json_data)].push({
-                       label_name : labelVal,
-                        input_width : widthVal,
-                        parent_id : superId
-                    })
-                    }
-                }
-            }
-            else{
-                json_data[chkId]=[{
-                       label_name : labelVal,
-                        input_width : widthVal,
-                        parent_id : superId
-                    }]
-            
-                }
-            console.log(json_data)
+			if(json_data.hasOwnProperty(chkId)){
+				
+					for(var i=0;i<json_data.dragableclass.length;i++){
+					  if(json_data.dragableclass[i].parent_id==superId){
+							json_data.dragableclass[i].parent_id = superId;
+							json_data.dragableclass[i].input_width = widthVal;
+							json_data.dragableclass[i].label_name = labelVal;
+							break;
+					  }
+					  if(i==json_data.dragableclass.length-1){
+								insertData()
+						}
+					}	
+					function insertData(){
+						json_data.dragableclass.push({
+							 label_name : labelVal,
+							input_width : widthVal,
+							parent_id : superId
+						})
+					}
+			}
+			else{
+				var json_value =[{
+						   label_name : labelVal,
+							input_width : widthVal,
+							parent_id : superId
+				}]
+				json_data[chkId] = json_value;
+			}
+			function _isContains(json, value) {
+				let contains = false;
+				for(var i=0;i<json_data.dragableclass.length;i++){
+				  if(json_data.dragableclass[i].parent_id==value){
+					return true;
+				  }
+				}
+			  return contains;
+			}
+
+			
+			
 //              var BookModel = Backbone.Model.extend({
 //     urlRoot: '/saveUserInfo'
 // });
@@ -278,7 +299,21 @@ var draggableId;
         $("#myModal").modal('show');
         $("#superId").val(id);
 		var chkID = $("#ccl1 :input").attr("id");
-		$("#chkId").val(chkID)
+		$("#chkId").val(chkID);
+		if(json_data.dragableclass!=undefined){
+			for(var i=0;i<json_data.dragableclass.length;i++){
+				if(json_data.dragableclass[i].parent_id==id){
+					$("#label").val(json_data.dragableclass[i].label_name)
+					$("#width").val(json_data.dragableclass[i].input_width)
+					break;
+				}
+				else{
+					$("#label").val('')
+					$("#width").val('')
+				}
+			}
+		}
+		
 		
     }
  </script>

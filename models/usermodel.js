@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-var userSchema = new Schema({
-	properties :[object]
+var userSchema = mongoose.Schema({
+	properties :[Object]
 })
 var User = module.exports = mongoose.model("user",userSchema)
 module.exports.saveUser = function(userobj,callback){
