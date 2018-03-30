@@ -1,7 +1,8 @@
 const express = require('express'),
       bodyParser = require('body-parser'),
       //pg = require('pg');
-       mongodb=require('mongodb').MongoClient;
+    //   mongodb=require('mongodb').MongoClient;
+    mongoose = require('mongoose');
 const dbconfig=require('./config/dbconfig');
 
 const app=express();
@@ -10,17 +11,19 @@ app.use(bodyParser.urlencoded({extended: true}));
 const port=process.env.PORT||8086;
 //const db;
 app.use(express.static(__dirname+'/public'))
-mongodb.connect(dbconfig.dburl,function(err,dbconn){
-    if(err){
-        console.log(err)
-    }
-    else{
-        let dbname = 'drag-drop';
-       let db= dbconn.db(dbname);
-        console.log('mongodb connected');
-        require('./routes/users')(app,db)
-    }
-})
+mongoose.connect(dbconfig.dburl)
+// mongodb.connect(dbconfig.dburl,function(err,dbconn){
+//     if(err){
+//         console.log(err)
+//     }
+//     else{
+//         let dbname = 'drag-drop';
+//        let db= dbconn.db(dbname);
+//         console.log('mongodb connected');
+//         require('./routes/users')(app,db)
+//     }
+// })
+require('./routes/users')(app)
 app.listen(port, function(err,result) {
     if(err){
     console.log(err.message);

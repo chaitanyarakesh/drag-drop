@@ -1,5 +1,40 @@
-module.exports.saveUser = function(userobj,db,callback){
+const mongoose = require('mongoose');
+var userSchema = new Schema({
+	properties :[object]
+})
+var User = module.exports = mongoose.model("user",userSchema)
+module.exports.saveUser = function(userobj,callback){
 	console.log(userobj)
+	User.find({ "modal_properties.userobj.chkId": userobj.chkId },function(err,result){
+		if(err){
+			console.log(err)
+		}
+		else if(result){
+			User.updateOne({ "modal_properties.userobj.chkId": userobj.chkId },{$push:{"modal_properties.userobj.chkId":userobj}},function(err,updated){
+				if(err){
+					console.log(err);
+					return callback(err)
+				}
+				else{
+					return callback(updated)
+				}
+			})
+		}
+		else{
+			const user = new User();
+			user.modelprop = userobj;
+			user.save(function(err,saved){
+				if(err){
+					return callback(err)
+				}
+				else{
+					return callback(saved)
+				}
+			})
+		}
+	})
+	
+
 /*     db.collection('users').insertOne( {"properties": userobj},{  safe: true, upsert: true},function(err,result){
         if(err){
 			console.log(err)
@@ -9,35 +44,7 @@ module.exports.saveUser = function(userobj,db,callback){
         return callback(result);
         }
     }) */
-	console.log(userobj.chkId)
-	console.log({ "modal_properties.chkId": userobj.chkId })
-	db.collection('user').findOne({ "modal_properties.chkId": userobj.chkId },function(err,result){
-		console.log(result)
-		if(err){
-			console.log(err)
-		}
-		else if(result){
-			db.collection('users').update({ "modal_properties.chkId": userobj.chkId },{$push:{"modal_properties": userobj}},{  safe: true, upsert: true},function(err,result){
-				if(err){
-					console.log(err)
-				 return callback(err);
-				}else{
-				return callback(result);
-				}
-			})
-		}
-		else{
-			db.collection('users').insertOne( {"modal_properties": {userobj}},function(err,result){
-				if(err){
-					console.log(err)
-				 return callback(err);
-				}else{
-					console.log("inserted")
-				return callback(result);
-				}
-			})
-		}
-	})
+	
 }
  module.exports.getUserInfo=function(db,callback){
     //  db.collection('users').findOne({and:[{email:userobj.email},{password:userobj.password}]},function(err,result){

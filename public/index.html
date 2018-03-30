@@ -49,6 +49,9 @@
 					</div>
 					<div class="col-md-6">
 						<div class="col-md-4 dropable" id="dropbleclass">
+                            <div id="ccl">
+
+                            </div>
 						   drop
 						</div>
 					</div>
@@ -161,7 +164,7 @@ var draggableId;
       drop:function(event,ui){
 			chkId=draggableId
           var element = $(ui.helper).clone();
-          $('#dropbleclass').append('<div id="ccl'+i+'" onclick="openModal(this.id)"><label>userName</label><input type="text" id="'+chkId+'"></div>');
+          $('#ccl').append('<div id="ccl'+i+'" onclick="openModal(this.id)"><label>userName</label><input type="text" id="'+chkId+'"></div>');
           i++;
       }
        
@@ -175,22 +178,43 @@ var draggableId;
 
 	//save function
     var user;
+    var json_data = [];
         $("#saveFun").click(function(){
           //  
             var labelVal  = $("#label").val();
             var widthVal = $("#width").val();
             var superId = $("#superId").val();
-			var chkId = $("#chkId").val();
-
-             var BookModel = Backbone.Model.extend({
-    urlRoot: '/saveUserInfo'
-});
-var BookCollection = Backbone.Collection.extend({
-    model: BookModel
-    , url: '/saveUserInfo'
-});
-var brandNewBook = new BookModel({ label: labelVal, inputwidth: widthVal, superId : superId,chkId : chkId });
-brandNewBook.save();
+            var chkId = $("#chkId").val();
+            console.log(json_data.length)
+            if(Object.keys(json_data).length!=0){
+                for(let i=0;i<Object.keys(json_data).length;i++){
+                    if(Object.keys(json_data)[i] == chkId){
+                        json_data[Object.keys(json_data)].push({
+                       label_name : labelVal,
+                        input_width : widthVal,
+                        parent_id : superId
+                    })
+                    }
+                }
+            }
+            else{
+                json_data[chkId]=[{
+                       label_name : labelVal,
+                        input_width : widthVal,
+                        parent_id : superId
+                    }]
+            
+                }
+            console.log(json_data)
+//              var BookModel = Backbone.Model.extend({
+//     urlRoot: '/saveUserInfo'
+// });
+// var BookCollection = Backbone.Collection.extend({
+//     model: BookModel
+//     , url: '/saveUserInfo'
+// });
+// var brandNewBook = new BookModel({ label: labelVal, inputwidth: widthVal, superId : superId,chkId : chkId });
+// brandNewBook.save();
          
             // var Model1 = Backbone.Model.extend({ url: '/saveUserInfo/'+labelVal+"/"+widthVal+"/"+superId });
              //this.model.save(sendData, { success, error });
@@ -216,15 +240,15 @@ brandNewBook.save();
 
         $('#myModal').on('hidden.bs.modal', function () {
             
-            Courses = Backbone.Collection.extend({
-                    url:'/getUserInfo'
-                });
-                var courses = new Courses();
-                courses.fetch({
-                    success:function(data_array){
-                        console.log(data_array.models[0].attributes);
-                    }
-                })
+            // Courses = Backbone.Collection.extend({
+            //         url:'/getUserInfo'
+            //     });
+            //     var courses = new Courses();
+            //     courses.fetch({
+            //         success:function(data_array){
+            //             console.log(data_array.models[0].attributes);
+            //         }
+            //     })
             // var  UserView = Backbone.View.extend({
             //     render : function(){
             //         var parentId='';
