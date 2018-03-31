@@ -1,241 +1,439 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
 
-
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
-
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.2/underscore-min.js" type="text/javascript"></script>  
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min.js" type="text/javascript"></script>
 <style>
-
-
+    .icon-bar {
+        background-color: white;
+        border-bottom: 1px solid lightgrey;
+        overflow: auto;
+        width: 100%;
+    }
 </style>
-</head>
+<script type="text/javascript" src="../Scripts/AppScripts/policy/policylist.js"></script>
 
-<body>
-     <!-- <div class="draggable" style="padding:10px;background-color:aquamarine">
-         <input type="checkbox" name="checkbox" id="dragablecheckbox" >
-     </div>
-     <div id="dropbleclass" class="dropable">
 
-     </div> -->
+<body >
+    <div class="breadcrumbs" id="breadcrumbs">
+        <script type="text/javascript">
+            try {
+                ace.settings.check('breadcrumbs', 'fixed')
+            } catch (e) {
+            }
+        </script>
+        <ul class="breadcrumb">
+            <li><i class="ace-icon fa fa-home home-icon"></i><a href="#">Home</a></li>
+            <li><a>Admin</a></li>
+            <li>imagedrage</li>
+        </ul>
+    </div>
+    <div class="icon-bar">
+        <a class="disableicons Toolbar_Settings" title="Settings">
+            <img src="../Images/ToolbarIcons/Settings.png" /></a>
+        <a class="disableicons Toolbar_UploadImage" title="Upload Image">
+            <img src="../Images/ToolbarIcons/UploadImage.png" /></a>
+        <a class="disableicons Toolbar_UploadFile" title="Upload CSV">
+            <img src="../Images/ToolbarIcons/UploadFile.png" /></a>
+        <a class="disableicons Toolbar_ExportPDF" title="Export PDF">
+            <img src="../Images/ToolbarIcons/ExportPDF.png" /></a>
+        <a class="disableicons Toolbar_ExportExcel" title="Export Excel">
+            <img src="../Images/ToolbarIcons/ExportExcel.png" /></a>
+        <a class="disableicons Toolbar_Draft" title="Open Draft">
+            <img src="../Images/ToolbarIcons/OpenDraft.png" /></a>
+        <a class="disableicons Toolbar_Preview" title="Preview">
+            <img src="../Images/ToolbarIcons/Preview.png"></a>
+         <a class="disableicons Toolbar_Create" title="Invoke">
+            <img src="../Images/ToolbarIcons/Invoke.png" /></a>
+        <a class="disableicons Toolbar_Cancel" title="Cancel">
+            <img src="../Analytics/Content/Images/ToolbarIcons/Cancel.png"></a>
+        <a class="Toolbar_Delete" title="Delete Record">
+            <img src="../Images/ToolbarIcons/Delete.png" /></a>
+        <a class="Toolbar_List" title="View Entries" >
+            <img src="../Images/ToolbarIcons/List.png" /></a>
+        <a class="Toolbar_Edit" title="Edit" >
+            <img src="../Images/ToolbarIcons/Edit.png" /></a>
+        <a class="Toolbar_Save" title="Save" >
+            <img src="../Images/ToolbarIcons/Save.png" /></a>
+        <a class="disableicons Toolbar_AddConnection" title="Add Connection">
+            <img src="../Images/ToolbarIcons/AddConnection.png"></a>
+        <a class="disableicons Toolbar_AddDB" title="Add Stored Procedure">
+            <img src="../Images/ToolbarIcons/AddDB.png"></a>
+        <a class="Toolbar_Create" title="Create" >
+            <img src="../Images/ToolbarIcons/Create.png" /></a>
 
-     <div class="container-fluid">
-            <div class="row">
-				<div class="col-md-12">
-					<div class="col-md-6">
-						 <div class="col-md-3" draggable="true" id="dragableclass" style="padding:15px;background-color:#ccc">
-							<!-- <div class=" myCss" id="dragdrop" ></div> -->
-							<input type="checkbox" name="checkbox"  >
-						</div>
-						 <!-- <div class="col-md-3" draggable="true" id="dragableclass2">
-							
-							<input type="checkbox" name="checkbox"  >
-						</div> -->
-					</div>
-					<div class="col-md-6">
-						<div class="col-md-4 dropable" id="dropbleclass">
-                            <div id="ccl">
-                                drop
-                            </div>
-						   
-						</div>
-					</div>
-				</div>
-               
+        <!-- <div class="page-header">
+            <h1>Users List<small><i class="ace-icon fa fa-angle-double-right"></i>
+            </small>
+            </h1>
+        </div> -->
+    </div>
 
-                
-            </div>
-            <button class="drag" id="save">save</button>
+    <!-- <div class="container">
+      <div class="row">
+
+    <div  class="col-lg-6">
+      <div id="circle">
+         <h1>PasswordPolicyList<small><i class="ace-icon fa fa-angle-double-right"></i>
+        </small>
+        </h1>
+    </div>
+ </div>
+
+    <div class="col-lg-6">
+      <div id="circle2"></div>
+    </div>
+</div>
+</div> -->
+<div class="container-fluid">
+    <div class="row">
+
+        <div class="col-lg-6" id="draggable">
+
+          <input type="text" id="checkbox1" style="margin:31px 0px;" >
+
         </div>
 
 
-        <!-- Button trigger modal -->
-<!-- <button type="button" id="mymodal" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-    Launch demo modal
-  </button> -->
-  
-  <!-- Modal -->
-  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-        </div>
-        <div class="modal-body">
-          <input type="text" name="label" id="label">
-          <input type="text" name="width" id="width">
-          <input type="hidden" name="superID" id="superId">
-		  <input type="hidden" name="chkId" id="chkId">
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" id="saveFun">Save changes</button>
-        </div>
+        <div class="col-lg-6" id="droppable">
+          <div id="sartable">
+          </div>
+
+    </div>
+</div>
+</div>
+
+
+
+<!-- <button type="button" class="btn btn-primary btn-lg">
+  Launch demo modal
+</button> -->
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        <lable>username</label>
+      <input type="text"  id="label">
+          <lable>width</label>
+      <input type="text"  id="width">
+      <input type="hidden"  id="superId">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="saveFun">Save changes</button>
       </div>
     </div>
   </div>
+</div>
 
 </body>
-</html>
+
+<style>
+#circle {
+      width: 50px;
+      height: 50px;
+      -webkit-border-radius: 25px;
+      -moz-border-radius: 25px;
+      border-radius: 25px;
+      background: #b7338e;
+    }
+     .rrr{
+      height: 100px;
+      width: 105px;
+      background-color: #988fe0;
+      border-radius: 20px;
+
+    }
+    .highlight {
+    border: 2px solid red;
+    font-weight: bold;
+}
+.datamodel{
+ color: red
+}
+
+</style>
+
+
 <script>
- i=1;
+
+$(function() {
+ var i=1;
+
+//    counter = 0;
+//   $("#draggable").draggable({
+//
+//             helper: function() {
+//           alert("hii")
+//         //debugger;
+//        return $('<lable>username</lable><input type="text" style="margin: 11px 0px;">').append($(this).clone());
+//    }
+// ,
+//          containment: 'droppable',
+//           stop : function(ev, ui) {
+//             	var pos=$(ui.helper).offset();
+//             	objName = "#clonediv"+counter;
+//            	$(objName).children().css({"height":"100px","width":"100px"});
+//             	$(objName).removeClass("draggable");
+//
+//
+//                	//When an existiung object is dragged
+//                 $(objName).draggable({
+//                 	containment: 'droppable',
+//                    stop:function(ev, ui) {
+//                     	var pos=$(ui.helper).offset();
+//                     }
+//                 });
+//             }
+//         });
+//        //Make element droppable
+//         $("#droppable").droppable({
+//           //  accept : 'p',
+// 			drop: function(ev, ui) {
+// 				if ($(ui.helper).attr('id').search(/drag[0-9]/) == -1){
+// 					counter++;
+// 					var element=$(ui.helper).clone();
+// 					element.addClass("tempclass");
+// 					$(this).append(element);
+// 					$(".tempclass").attr("id","clonediv"+counter);
+// 					$("#clonediv"+counter).removeClass("tempclass");
+//
+// 					//Get the dynamically item id
+// 					draggedNumber = $(ui.helper).attr('id')
+// 					itemDragged = "dragged" + RegExp.$1
+// 					console.log(itemDragged)
+//
+// 					$("#clonediv"+counter).addClass(itemDragged);
+// 				}
+//         	}
+//         });
+$("#sartable").sortable();
+$('#draggable').draggable({
+  helper:'clone'
+});
+$("#droppable").droppable({
+    accept:'#draggable',
+    drop : function(event, ui){
+
+      $("#sartable").append('<div  id="popup'+i+'"  onclick="openModal(this.id)" class="data1" ><label id="lable'+i+'">username</label><input type="text" style="margin: 11px 0px;" id="text'+i+'"></div>')
+        i++;
+    },
+
+});
+
+      $('#draggable').click(function(){
+
+        var a='<div id="popup'+i+'"  onclick="openModal(this.id)" class="data1" ><label id="lable'+i+'">username</label><input type="text" style="margin: 11px 0px;" id="text'+i+'" ></div>'
+        $("#sartable").append(a)
+           i++;
+      })
+
+             // $(".datamodel").sortable({
+             //
+             //         connectWith: "#draggable",
+             //         start: function (event, ui) {
+             //              alert("hiii")-
+             //                 ui.item.toggleClass("highlight");
+             //         },
+             //         stop: function (event, ui) {
+             //                 ui.item.toggleClass("highlight");
+             //         }
+             // });
+             // $(".datamodel").disableSelection();
 
 
-	$("#dragableclass").draggable({
-     
-     helper: 'clone'
-     });
- $("#dropbleclass").droppable({
-         accept :"#dragableclass",
-      drop:function(event,ui){
-			////chkId=draggableId
-          //var element = $(ui.helper).clone();
-          $('#ccl').append('<div id="ccl'+i+'" onclick="openModal(this.id)" class="drag"><label id="lable'+i+'">userName</label><input type="text" id="input'+i+'"></div>');
-          i++;
-      }
-       
-     });
 
-     $("#save ").click(function(){
-         var data=[];
-         var str ="";
-            $("#ccl .drag").each(function(){
-                var maindiv=this.id;
-                var label=$(this).find('label').attr('id')
-                var input_text=$(this).find('input').attr('id')
-                var label_text = $(this).find('label').text();
-                var input_width = $(this).find('input').width();
-                
-
-                
-                str='{"'+maindiv+'"';
-                str+=':[{"label":{"labelid":"'+label+'","label_text":"'+label_text+'"}},{"input":{"textid":"'+input_text+'","input_width":"'+input_width+'"}}]}'
-                data.push(JSON.parse(str));
-                
-            })
-           // var data1 = JSON.parse(data)
-           var data_parse = [];
-           //for(var i=0;i<data.length;i++){
-            //data_parse.push(JSON.parse(data[i]))
-        //}
-
-            $.ajax({
-                    type:'post',
-                    url : '/saveUserInfo',
-                    data : {data:data},
-                    success : function(response){
-                        console.log(response)
-                    },
-                    error:function(err){
-                        console.log(err)
-                    }
-                })
-
-
-var finaljson=console.log(data)
-     
-
-     })
-
-
-   
-
-	//save function
-    var user;
-    var json_data = {};
+            var user;
         $("#saveFun").click(function(){
-          //  
+           console.log("hiii")
             var labelVal  = $("#label").val();
-            var widthVal = $("#width").val();
+           var widthVal = $("#width").val();
             var superId = $("#superId").val();
-            var chkId = $("#chkId").val();
-            console.log(json_data.length)
-			if(json_data.hasOwnProperty(chkId)){
-				
-					for(var i=0;i<json_data.dragableclass.length;i++){
-					  if(json_data.dragableclass[i].parent_id==superId){
-							json_data.dragableclass[i].parent_id = superId;
-							json_data.dragableclass[i].input_width = widthVal;
-							json_data.dragableclass[i].label_name = labelVal;
-							break;
-					  }
-					  if(i==json_data.dragableclass.length-1){
-								insertData()
-						}
-					}	
-					function insertData(){
-						json_data.dragableclass.push({
-							 label_name : labelVal,
-							input_width : widthVal,
-							parent_id : superId
-						})
-					}
-			}
-			else{
-				var json_value =[{
-						   label_name : labelVal,
-							input_width : widthVal,
-							parent_id : superId
-				}]
-				json_data[chkId] = json_value;
-			}
-			function _isContains(json, value) {
-				let contains = false;
-				for(var i=0;i<json_data.dragableclass.length;i++){
-				  if(json_data.dragableclass[i].parent_id==value){
-					return true;
-				  }
-				}
-			  return contains;
-			}
+            var User = Backbone.Model.extend({
+                defaults: {
+                    parentId: '',
+                    labelName: '',
+                    inputWidth: ''
+                }
+               //  initialize: function(){
+               //      alert("Welcome to this world");
+               // }
+            });
+            user = new User();
+            user.set({parentId : superId, labelName : labelVal, inputWidth : widthVal});
+          //  console.log("details are ...: ", user.get('parentId'));
+            //console.log(user.get('labelName'))
+          // console.log(user.get('inputWidth'))
 
-			
-			
-
+          $("#label").val("");
+         $("#width").val("");
         })
+
 
         $('#myModal').on('hidden.bs.modal', function () {
-            
-            
+           console.log('teja');
+            var  UserView = Backbone.View.extend({
+                render : function(){
+                    var parentId='';
+                    _.each(this.model.attributes, function(val, key) {
+                      console.log(key)
+                       if(key=="parentId" && val!=""){
+                            parentId=val;
+
+                        console.log(key)
+                        }
+                        else if(key=="labelName" && val!="" ){
+                             console.log(key)
+                            $("#"+parentId).find('label').text(val)
+                             console.log($("#"+parentId).find('lable').text(val))
+                        }
+                        else if(key=="inputWidth" && val!=""  ){
+                          console.log(key)
+                            $("#"+parentId).find('input').css("width",val)
+                        }
+
+                    });
+                    return this;
+                }
+                 // $( "#"+parentId ).sortable();
+                 //     $( "#"+parentId  ).disableSelection();
+            });
+            var modelView = new UserView({model: user});
+            modelView.render();
+
         })
+})
 
-	
 
-    function openModal(id){
-        $("#myModal").modal('show');
-        $("#superId").val(id);
-		var chkID = $("#ccl1 :input").attr("id");
-		$("#chkId").val(chkID);
-		if(json_data.dragableclass!=undefined){
-			for(var i=0;i<json_data.dragableclass.length;i++){
-				if(json_data.dragableclass[i].parent_id==id){
-					$("#label").val(json_data.dragableclass[i].label_name)
-					$("#width").val(json_data.dragableclass[i].input_width)
-					break;
-				}
-				else{
-					$("#label").val('')
-					$("#width").val('')
-				}
-			}
-		}
-		
-		
-    }
- </script>
+$('.Toolbar_Save').click(function(){
+    var jsondetails=[];
+ $('#sartable .data1').each(function(){
+   //debugger;
+
+//alert(this.id);
+var maindivid=this.id;
+//alert(maindivid);
+//  jsondetails.push(this.id)
+  var label=  $(this).find('label').attr('id');
+  var text=  $(this).find('input').attr('id');
+  var textdata = $(this).find('label').text();
+   //ar textdata=$(this).find('lable').text();
+
+   var width=$(this).find('input').width();
+  //alert(text);
+  //console.log(textdata)
+  //alert(textdata)
+  //var width=  $(this.id).find('input')
+//jsondetails.push(label)
+var str="";
+ str='{"'+maindivid+'"';
+
+  str +=':[{"label":{"labelid":"'+label+'","textdata":"'+textdata+'"}},{"input":{"inputid":"'+text+'","width":"'+width+'"}}]}';
+// alert(str);
+   jsondetails.push(str);
+//console.log((((JSON.stringify(jsondetails)).replace(/"/g , "/")).replace(/\\/g,'"')).replace(/\//g,''));
+ })
+
+var finaljson=(((JSON.stringify(jsondetails)).replace(/"/g , "/")).replace(/\\/g,'"')).replace(/\//g,'');
+
+
+//console.log(finaljson);
+
+$( '#sartable .data1' ).remove();
+  var data=JSON.parse(finaljson);
+
+  //alert(data.length);
+//$("#sartable").empty();
+var html_up;
+
+for (var i = 0; i < data.length; i++) {
+
+alert(JSON.stringify(data[i]));
+
+   $.each(data[i], function (key, value) {
+
+      // alert(key + "\t" + JSON.stringify(value));
+       //alert(data[i])
+       html_up += '$'+i+'<div id="' + key + '" onclick="openModal(this.id)" class="data1">';
+       for (var i = 0; i < value.length; i++) {
+         //  alert(JSON.stringify(value[i]));
+         //alert(value[i])
+           $.each(value[i], function (key, value) {
+//alert(key + "\t" + JSON.stringify());
+               if(key =='label'){
+                  html_up += '<label id="' + value.labelid + '">' + value.textdata + '</label>';
+
+}
+if(key =='input'){
+//alert(key + "\t" + JSON.stringify(value));
+//alert(value.width)
+  html_up +='<input type="text" style="margin: 11px 0px;width:'+value.width+'px" id="'+value.inputid+'">';
+}
+
+           });
+html_up +='</div>'
+
+
+
+}
+
+       //html += '<label id="lable1">username</label><input type="text" style="margin: 11px 0px;" id="text1"></div>';
+
+
+   });
+
+//
+//   html += '<div id="popup1" onclick="openModal(this.id)" class="data1"><label id="lable1">username</label><input type="text" style="margin: 11px 0px;" id="text1"></div>';
+
+}
+alert(html_up);
+//var arr = html_up.split('$1');
+$("#sartable").empty();
+//$("#sartable").replace("undefined","");
+//$("#sartable").replace('undefined', '');
+$("#sartable").append(html_up);
+});
+//   var contents = '';
+//    $('#draggable').draggable({
+//        containment: "document",
+//        revert: true,
+//        start: function () {
+//             contents = $(this).attr('title');
+//        }
+//    });
+//
+//    $('#droppable').droppable({
+//        // hoverClass: 'border',
+//        // accept: 'img',
+//        drop: function (event, ui) {
+//            $('#droppable').append('<input type="text">');
+//        }
+//    });
+// });
+// jQuery(document).ready(function(e) {
+//   alert("hii")
+//     jQuery('#mymodal').trigger('click');
+// });
+// for (var key in myObj){
+//     if (key == selUser){
+//         for (var date in myObj[key]["dates & times"]){
+//             console.log("Date: " + date + "; " + "weight: " + myObj[key]["dates & times"][date]);
+//             var dtTag = "<dt class=\"date\"><span>Date: </span>" + date + " </dt>";
+//             var ddTag = "<dd class=\"value\"><span>Time: </span>" + myObj[key]["dates & times"][date] + "</dd>";
+//             output.innerHTML += dtTag;
+//             output.innerHTML += ddTag;
+//         }
+//     }
+// }
+
+
+function openModal(id){
+  //alert(id)
+  $("#myModal").modal('show');
+$("#superId").val(id)
+
+}
+
+</script>
