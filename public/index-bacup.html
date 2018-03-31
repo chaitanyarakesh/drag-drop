@@ -50,9 +50,9 @@
 					<div class="col-md-6">
 						<div class="col-md-4 dropable" id="dropbleclass">
                             <div id="ccl">
-                                drop
+
                             </div>
-						   
+						   drop
 						</div>
 					</div>
 				</div>
@@ -60,7 +60,6 @@
 
                 
             </div>
-            <button class="drag" id="save">save</button>
         </div>
 
 
@@ -94,67 +93,88 @@
 </body>
 </html>
 <script>
- i=1;
 
-
+//$(document).ready(function(){
+//var draggableId;
+ //function myFunction(event,id){
+ draggableId = dragableclass;
 	$("#dragableclass").draggable({
      
      helper: 'clone'
      });
- $("#dropbleclass").droppable({
-         accept :"#dragableclass",
+ //}
+//         //Counter
+//         counter = 0;
+//         //Make element draggable
+//         $(".draggable").draggable({
+//             helper: function() {
+//         //debugger;
+//         return $('<input type="text" id="dragdrop1" onkeypress="myFun(event,this.id)"/>').append($(this).clone());
+//     }
+// ,
+//           containment: 'dropbleclass',            //When first dragged
+//             stop : function(ev, ui) {
+//             	var pos=$(ui.helper).offset();
+//             	objName = "#clonediv"+counter;
+//             	$(objName).children().css({"height":"100px","width":"100px"});
+//             	$(objName).removeClass("draggable");
+
+
+//                	//When an existiung object is dragged
+//                 $(objName).draggable({
+//                 	containment: 'dropbleclass',
+//                     stop:function(ev, ui) {
+//                     	var pos=$(ui.helper).offset();
+//                     }
+//                 });
+//             }
+//         });
+//         //Make element droppable
+//         $("#dropbleclass").droppable({
+//           //  accept : 'p',
+// 			drop: function(ev, ui) {
+// 				if ($(ui.helper).attr('id').search(/drag[0-9]/) == -1){
+// 					counter++;
+// 					var element=$(ui.helper).clone();
+// 					element.addClass("tempclass");
+// 					$(this).append(element);
+// 					$(".tempclass").attr("id","clonediv"+counter);
+// 					$("#clonediv"+counter).removeClass("tempclass");
+
+// 					//Get the dynamically item id
+// 					draggedNumber = $(ui.helper).attr('id')
+// 					itemDragged = "dragged" + RegExp.$1
+// 					console.log(itemDragged)
+
+// 					$("#clonediv"+counter).addClass(itemDragged);
+// 				}
+//         	}
+//         });
+ i=1;
+   
+ 
+/* $("#dragableclass").draggable({
+     
+     helper: 'clone'
+     });*/
+	 
+	
+
+     $("#dropbleclass").droppable({
       drop:function(event,ui){
-			////chkId=draggableId
-          //var element = $(ui.helper).clone();
-          $('#ccl').append('<div id="ccl'+i+'" onclick="openModal(this.id)" class="drag"><label id="lable'+i+'">userName</label><input type="text" id="input'+i+'"></div>');
+			chkId=draggableId
+          var element = $(ui.helper).clone();
+          $('#ccl').append('<div id="ccl'+i+'" onclick="openModal(this.id)"><label>userName</label><input type="text" id="'+chkId+'"></div>');
           i++;
       }
        
      });
 
-     $("#save ").click(function(){
-         var data=[];
-         var str ="";
-            $("#ccl .drag").each(function(){
-                var maindiv=this.id;
-                var label=$(this).find('label').attr('id')
-                var input_text=$(this).find('input').attr('id')
-                var label_text = $(this).find('label').text();
-                var input_width = $(this).find('input').width();
-                
 
-                
-                str='{"'+maindiv+'"';
-                str+=':[{"label":{"labelid":"'+label+'","label_text":"'+label_text+'"}},{"input":{"textid":"'+input_text+'","input_width":"'+input_width+'"}}]}'
-                data.push(JSON.parse(str));
-                
-            })
-           // var data1 = JSON.parse(data)
-           var data_parse = [];
-           //for(var i=0;i<data.length;i++){
-            //data_parse.push(JSON.parse(data[i]))
-        //}
-
-            $.ajax({
-                    type:'post',
-                    url : '/saveUserInfo',
-                    data : {data:data},
-                    success : function(response){
-                        console.log(response)
-                    },
-                    error:function(err){
-                        console.log(err)
-                    }
-                })
-
-
-var finaljson=console.log(data)
-     
-
-     })
-
-
-   
+    //});
+    // jQuery(document).ready(function(e) {
+    // jQuery('.').trigger('click');
+//});
 
 	//save function
     var user;
@@ -207,12 +227,70 @@ var finaljson=console.log(data)
 
 			
 			
+//              var BookModel = Backbone.Model.extend({
+//     urlRoot: '/saveUserInfo'
+// });
+// var BookCollection = Backbone.Collection.extend({
+//     model: BookModel
+//     , url: '/saveUserInfo'
+// });
+// var brandNewBook = new BookModel({ label: labelVal, inputwidth: widthVal, superId : superId,chkId : chkId });
+// brandNewBook.save();
+         
+            // var Model1 = Backbone.Model.extend({ url: '/saveUserInfo/'+labelVal+"/"+widthVal+"/"+superId });
+             //this.model.save(sendData, { success, error });
+            
 
+
+        //     var User = Backbone.Model.extend({
+        //         defaults: {
+        //             parentId: '',
+        //             labelName: '',
+        //             inputWidth: ''
+        //         },
+        //         initialize: function(){
+        //             alert("Welcome to this world");
+        //         }
+        //     });
+        //     user = new User();
+        //     user.set({parentId : superId, labelName : labelVal, inputWidth : widthVal});  
+        //    console.log("details are ...: ", user.get('parentId'));
+        //    console.log(user.get('labelName'))
+        //    console.log(user.get('inputWidth'))
         })
 
         $('#myModal').on('hidden.bs.modal', function () {
             
-            
+            // Courses = Backbone.Collection.extend({
+            //         url:'/getUserInfo'
+            //     });
+            //     var courses = new Courses();
+            //     courses.fetch({
+            //         success:function(data_array){
+            //             console.log(data_array.models[0].attributes);
+            //         }
+            //     })
+            // var  UserView = Backbone.View.extend({
+            //     render : function(){
+            //         var parentId='';
+            //         _.each(this.model.attributes, function(val, key) {
+            //             if(key=="parentId" && val!=""){
+            //                 parentId=val;
+                            
+            //             }
+            //             else if(key=="labelName" && val!=""){
+            //                 $("#"+parentId).find('label').text(val)
+            //             }
+            //             else if(key=="inputWidth" &&val!=""){
+            //                 $("#"+parentId).find('input').css("width",val)
+            //             }
+            //         });
+            //         return this;
+            //     }
+            // });
+            // var modelView = new UserView({model: user});
+            // modelView.render();
+
         })
 
 	
