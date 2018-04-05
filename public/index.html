@@ -7,9 +7,7 @@
         width: 100%;
     }
 </style>
-<script type="text/javascript" src="../Scripts/AppScripts/policy/policylist.js"></script>
-
-
+    <!-- <script src="../Scripts/Controllers/drag.js" type="text/javascript"></script> -->
 <body >
     <div class="breadcrumbs" id="breadcrumbs">
         <script type="text/javascript">
@@ -60,12 +58,17 @@
 </div>
 <div class="container-fluid" style="margin-top:16px;border: 1px solid black;">
     <div class="row" style="margin-left: 210px">
-
+          <!-- <div class="col-md-4" id="formdata">
+            <lable>form name</lable>
+            <input type="text" id="datatext" >
+          </div> -->
         <div  id="droppable" class="col-md-9 " style=" text-align: center">
            <div>
+
              <div id="sartable" style="margin-left: 28px;" >
                 <h1 >UserInputs</h1>
              </div>
+
            </div>
         </div>
      </div>
@@ -88,6 +91,28 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary" id="saveFun">Save changes</button>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+<!-- UserFormList -->
+<!-- Modal -->
+<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        <lable>form name</lable>
+        <input type="text" id="datatext" >
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="saveFun1">Save changes</button>
 
 
       </div>
@@ -120,13 +145,26 @@
 .datamodel{
  color: red
 }
+ .visuble1{
+   border: 1px solid red;
+   margin-top: 7px;
+   margin-bottom: 8px;
+  padding: 12px;
+ }
 
 </style>
 
 
 <script>
+$(document).ready(function(){
+  //alert("hii")
+  $("p").hide();
+$("#formdata").hide();
+//$(".visuble1").hide();
+})
 
 $(function() {
+
  var i=1;
 
 
@@ -147,13 +185,14 @@ $("#droppable").droppable({
       $('.Toolbar_Create').click(function(){
 
         //var a='<div id="popup'+i+'"  ondblclick="openModal(this.id)" class="data1" ><label id="lable'+i+'">username</label><input type="text" style="margin: 11px 0px;" id="text'+i+'" ></div>'
-        $("#sartable").append('<div  id="popup'+i+'"  ondblclick="openModal(this.id)" class="data1 form-group" ><label id="lable'+i+'">username</label><input type="text" style="margin: 11px 0px;" id="text'+i+'"  class="form-control"></div>')
+        $("#sartable").append('<div id="visuble" class="visuble1"><div  id="popup'+i+'"  ondblclick="openModal(this.id)" class="data1 form-group" ><label id="lable'+i+'">username</label><input type="text" style="margin: 11px 0px;" id="text'+i+'"  class="form-control"></div></div>')
            i++;
       })
       })
 
   $("#saveFun").dblclick(function(){
     debugger;
+    //$("visuble").show();
     var userId = $("#userid").val();
     //alert(userId)
          $("#"+userId).find('label').text($("#label").val());
@@ -161,7 +200,38 @@ $("#droppable").droppable({
           $("#myModal").modal('hide');
 
 })
+$("#saveFun1").click(function(){
+  var textdata=$("#datatext").val()
+  alert(textdata);
+  debugger;
+  var mydata=JSON.stringify({'textdata':textdata,'data':jsonarry});
 
+
+  alert(mydata);
+ console.log(mydata)
+ //console.log(data)
+        $.ajax({
+            url: "/updatedrg",
+           type: 'POST',
+           contentType: 'application/json',
+           data: mydata,
+            success: function (response) {
+
+                    fn_SuccessNotification(response, "success_alert", "", "");
+                   //  localStorage.setItem('id', '');
+                   // localStorage.setItem('type', '');
+                   //  window.location.href = "#pwdList";
+
+
+            },
+            error: function (jqXHR, exception) {
+                 fn_errorNotification(jqXHR.status, jqXHR, exception, "error occured at update with code fn_save_Userdetails", "error_alert", "", "");
+  //               StopPageLoader();
+            }
+        });
+
+  $("#myModal1").modal('hide');
+})
 
 
 
@@ -268,9 +338,12 @@ function openModal(userId){
 
 }
 var html_up;
-var json_arry = [];
+var jsonarry = [];
 $(".Toolbar_Save").click(function(){
-
+  $("#formdata").show();
+  $("#myModal1").modal('show');
+//var textdata=  $("#datatext").val();
+ //alert("textdat")
          $("#sartable .data1").each(function(){
             var json_obj = {};
              var parentId = this.id;
@@ -279,37 +352,44 @@ $(".Toolbar_Save").click(function(){
             var inputWidth =parseInt($("#"+parentId).find('input').width());
             var inputId = $("#"+parentId).find('input').attr('id');
             json_obj[parentId] =  [{"label":{"label_id":labelId,"label_name":labelText}},{"input":{"input_id":inputId,"input_width":inputWidth}}];
-            json_arry.push(json_obj)
+            //var jsonobj=JSON.stringify(json_obj)
+            jsonarry.push(JSON.stringify(json_obj));
           //alert(json_obj)
           console.log(JSON.stringify(json_obj));
-
+            alert("MyJSONarr"+jsonarry)
         });
-          var string=JSON.stringify(json_arry);
+          //var string=JSON.stringify(jsonarry);
 
 // var MyArray = JSON.stringify({
 //   'json_arry':json_arry
 // });
+
 //
 
-         $.ajax({
-             url: "/updatedrg",
-            type: 'POST',
-            contentType: 'application/json',
-            data: json_arry,
-             success: function (response) {
-
-                     fn_SuccessNotification(response, "success_alert", "", "");
-                    //  localStorage.setItem('id', '');
-                    // localStorage.setItem('type', '');
-                    //  window.location.href = "#pwdList";
-
-
-             },
-             error: function (jqXHR, exception) {
-                  fn_errorNotification(jqXHR.status, jqXHR, exception, "error occured at update with code fn_save_Userdetails", "error_alert", "", "");
-   //               StopPageLoader();
-             }
-         });
+   //onsole.log(textdata);
+ //   var mydata=JSON.stringify({'textdata':textdata,
+ //   data:jsonarry
+ // });
+ //
+ //         $.ajax({
+ //             url: "/updatedrg",
+ //            type: 'POST',
+ //            contentType: 'application/json',
+ //            data: mydata,
+ //             success: function (response) {
+ //
+ //                     //fn_SuccessNotification(response, "success_alert", "", "");
+ //                    //  localStorage.setItem('id', '');
+ //                    // localStorage.setItem('type', '');
+ //                    //  window.location.href = "#pwdList";
+ //
+ //
+ //             },
+ //             error: function (jqXHR, exception) {
+ //                  fn_errorNotification(jqXHR.status, jqXHR, exception, "error occured at update with code fn_save_Userdetails", "error_alert", "", "");
+ //   //               StopPageLoader();
+ //             }
+ //         });
 
 
 
