@@ -1,17 +1,21 @@
-const User  = require('./../models/usermodel');
-module.exports=function(app,db){
-    //console.log(db)
-app.post('/saveUserInfo',function(req,res){
-    
-    User.saveUser(req.body,db,function(savedInfo){
-        res.send(savedInfo)
-    })
-})
-
-app.get('/getUserInfo',function(req,res){
-    User.getUserInfo(db,function(getinfo){
-        res.send(getinfo)
-    })
-})
-
+{
+   
+        "postgre"    : {
+            "database" : "Rubus_Core",
+            "user"     : "postgres",
+            "password" : "postgres",
+			 "port"    : 5432,
+			 "host"    : "192.168.4.187"
+        },
+        "app"   : {
+            "port"     : 8086
+        },
+		 "cassandra"   : {
+            "contactPoints"     : "192.168.4.187:9042",
+			"keyspace"          : "elogsheet"
+        },
+		"filepath"     :{
+		    "serverscriptspath"              : "./public/Scripts/ServerScripts"
+		}
+   
 }
