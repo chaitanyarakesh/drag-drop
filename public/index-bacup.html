@@ -1,319 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-
-
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
-
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.2/underscore-min.js" type="text/javascript"></script>  
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min.js" type="text/javascript"></script>
-<style>
-
-
-</style>
-</head>
-
-<body>
-     <!-- <div class="draggable" style="padding:10px;background-color:aquamarine">
-         <input type="checkbox" name="checkbox" id="dragablecheckbox" >
-     </div>
-     <div id="dropbleclass" class="dropable">
-
-     </div> -->
-
-     <div class="container-fluid">
-            <div class="row">
-				<div class="col-md-12">
-					<div class="col-md-6">
-						 <div class="col-md-3" draggable="true" id="dragableclass" style="padding:15px;background-color:#ccc">
-							<!-- <div class=" myCss" id="dragdrop" ></div> -->
-							<input type="checkbox" name="checkbox"  >
-						</div>
-						 <!-- <div class="col-md-3" draggable="true" id="dragableclass2">
-							
-							<input type="checkbox" name="checkbox"  >
-						</div> -->
-					</div>
-					<div class="col-md-6">
-						<div class="col-md-4 dropable" id="dropbleclass">
-                            <div id="ccl">
-
-                            </div>
-						   drop
-						</div>
-					</div>
-				</div>
-               
-
-                
-            </div>
-        </div>
-
-
-        <!-- Button trigger modal -->
-<!-- <button type="button" id="mymodal" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-    Launch demo modal
-  </button> -->
-  
-  <!-- Modal -->
-  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-        </div>
-        <div class="modal-body">
-          <input type="text" name="label" id="label">
-          <input type="text" name="width" id="width">
-          <input type="hidden" name="superID" id="superId">
-		  <input type="hidden" name="chkId" id="chkId">
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" id="saveFun">Save changes</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-</body>
-</html>
 <script>
-
-//$(document).ready(function(){
-//var draggableId;
- //function myFunction(event,id){
- draggableId = dragableclass;
-	$("#dragableclass").draggable({
-     
-     helper: 'clone'
-     });
- //}
-//         //Counter
-//         counter = 0;
-//         //Make element draggable
-//         $(".draggable").draggable({
-//             helper: function() {
-//         //debugger;
-//         return $('<input type="text" id="dragdrop1" onkeypress="myFun(event,this.id)"/>').append($(this).clone());
-//     }
-// ,
-//           containment: 'dropbleclass',            //When first dragged
-//             stop : function(ev, ui) {
-//             	var pos=$(ui.helper).offset();
-//             	objName = "#clonediv"+counter;
-//             	$(objName).children().css({"height":"100px","width":"100px"});
-//             	$(objName).removeClass("draggable");
-
-
-//                	//When an existiung object is dragged
-//                 $(objName).draggable({
-//                 	containment: 'dropbleclass',
-//                     stop:function(ev, ui) {
-//                     	var pos=$(ui.helper).offset();
-//                     }
-//                 });
-//             }
-//         });
-//         //Make element droppable
-//         $("#dropbleclass").droppable({
-//           //  accept : 'p',
-// 			drop: function(ev, ui) {
-// 				if ($(ui.helper).attr('id').search(/drag[0-9]/) == -1){
-// 					counter++;
-// 					var element=$(ui.helper).clone();
-// 					element.addClass("tempclass");
-// 					$(this).append(element);
-// 					$(".tempclass").attr("id","clonediv"+counter);
-// 					$("#clonediv"+counter).removeClass("tempclass");
-
-// 					//Get the dynamically item id
-// 					draggedNumber = $(ui.helper).attr('id')
-// 					itemDragged = "dragged" + RegExp.$1
-// 					console.log(itemDragged)
-
-// 					$("#clonediv"+counter).addClass(itemDragged);
-// 				}
-//         	}
-//         });
- i=1;
-   
- 
-/* $("#dragableclass").draggable({
-     
-     helper: 'clone'
-     });*/
-	 
-	
-
-     $("#dropbleclass").droppable({
-      drop:function(event,ui){
-			chkId=draggableId
-          var element = $(ui.helper).clone();
-          $('#ccl').append('<div id="ccl'+i+'" onclick="openModal(this.id)"><label>userName</label><input type="text" id="'+chkId+'"></div>');
-          i++;
-      }
-       
-     });
-
-
-    //});
-    // jQuery(document).ready(function(e) {
-    // jQuery('.').trigger('click');
-//});
-
-	//save function
-    var user;
-    var json_data = {};
-        $("#saveFun").click(function(){
-          //  
-            var labelVal  = $("#label").val();
-            var widthVal = $("#width").val();
-            var superId = $("#superId").val();
-            var chkId = $("#chkId").val();
-            console.log(json_data.length)
-			if(json_data.hasOwnProperty(chkId)){
-				
-					for(var i=0;i<json_data.dragableclass.length;i++){
-					  if(json_data.dragableclass[i].parent_id==superId){
-							json_data.dragableclass[i].parent_id = superId;
-							json_data.dragableclass[i].input_width = widthVal;
-							json_data.dragableclass[i].label_name = labelVal;
-							break;
-					  }
-					  if(i==json_data.dragableclass.length-1){
-								insertData()
-						}
-					}	
-					function insertData(){
-						json_data.dragableclass.push({
-							 label_name : labelVal,
-							input_width : widthVal,
-							parent_id : superId
-						})
-					}
-			}
-			else{
-				var json_value =[{
-						   label_name : labelVal,
-							input_width : widthVal,
-							parent_id : superId
-				}]
-				json_data[chkId] = json_value;
-			}
-			function _isContains(json, value) {
-				let contains = false;
-				for(var i=0;i<json_data.dragableclass.length;i++){
-				  if(json_data.dragableclass[i].parent_id==value){
-					return true;
-				  }
-				}
-			  return contains;
-			}
-
-			
-			
-//              var BookModel = Backbone.Model.extend({
-//     urlRoot: '/saveUserInfo'
-// });
-// var BookCollection = Backbone.Collection.extend({
-//     model: BookModel
-//     , url: '/saveUserInfo'
-// });
-// var brandNewBook = new BookModel({ label: labelVal, inputwidth: widthVal, superId : superId,chkId : chkId });
-// brandNewBook.save();
+app.directive('number',function(){
+    var reg=/^\d+$/;
+    return{
+         restrict:'A',
+         link: function(scope, element, attr) {
+            element.on('keyup',myfun)
+           function myfun(){
+               var number=element.val();
+              if(reg.test(number)==false){
+                   alert("entervaliednumber")
+               }
+            }
          
-            // var Model1 = Backbone.Model.extend({ url: '/saveUserInfo/'+labelVal+"/"+widthVal+"/"+superId });
-             //this.model.save(sendData, { success, error });
-            
-
-
-        //     var User = Backbone.Model.extend({
-        //         defaults: {
-        //             parentId: '',
-        //             labelName: '',
-        //             inputWidth: ''
-        //         },
-        //         initialize: function(){
-        //             alert("Welcome to this world");
-        //         }
-        //     });
-        //     user = new User();
-        //     user.set({parentId : superId, labelName : labelVal, inputWidth : widthVal});  
-        //    console.log("details are ...: ", user.get('parentId'));
-        //    console.log(user.get('labelName'))
-        //    console.log(user.get('inputWidth'))
-        })
-
-        $('#myModal').on('hidden.bs.modal', function () {
-            
-            // Courses = Backbone.Collection.extend({
-            //         url:'/getUserInfo'
-            //     });
-            //     var courses = new Courses();
-            //     courses.fetch({
-            //         success:function(data_array){
-            //             console.log(data_array.models[0].attributes);
-            //         }
-            //     })
-            // var  UserView = Backbone.View.extend({
-            //     render : function(){
-            //         var parentId='';
-            //         _.each(this.model.attributes, function(val, key) {
-            //             if(key=="parentId" && val!=""){
-            //                 parentId=val;
-                            
-            //             }
-            //             else if(key=="labelName" && val!=""){
-            //                 $("#"+parentId).find('label').text(val)
-            //             }
-            //             else if(key=="inputWidth" &&val!=""){
-            //                 $("#"+parentId).find('input').css("width",val)
-            //             }
-            //         });
-            //         return this;
-            //     }
-            // });
-            // var modelView = new UserView({model: user});
-            // modelView.render();
-
-        })
-
-	
-
-    function openModal(id){
-        $("#myModal").modal('show');
-        $("#superId").val(id);
-		var chkID = $("#ccl1 :input").attr("id");
-		$("#chkId").val(chkID);
-		if(json_data.dragableclass!=undefined){
-			for(var i=0;i<json_data.dragableclass.length;i++){
-				if(json_data.dragableclass[i].parent_id==id){
-					$("#label").val(json_data.dragableclass[i].label_name)
-					$("#width").val(json_data.dragableclass[i].input_width)
-					break;
-				}
-				else{
-					$("#label").val('')
-					$("#width").val('')
-				}
-			}
-		}
-		
-		
+        }
+        
     }
- </script>
+})
+
+app.directive('email', function() {
+    var reg = /^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/;
+   debugger;
+  return {
+    link: function(scope, element, attr) {
+            element.on('keyup',myfun)
+             function  myfun(){
+                var email = reg.test(element.val());
+                 if( email&& element.hasClass('warning') || element.val() == ''){
+                 element.removeClass('warning');
+                }else if(email == false && !element.hasClass('warning')){
+                 element.addClass('warning');
+                 
+                
+               }
+             }
+              
+        }
+  }
+});
+
+</script>
+<style>
+.warning{
+   border:1px solid red;
+ }
+</style>
